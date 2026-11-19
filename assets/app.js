@@ -914,11 +914,39 @@ function initQR() {
   if (window.QRCode) new QRCode($('#qr'), { text: url, width: 240, height: 240, colorDark: '#073B42', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
 }
 
+/* Escenarios de captura (?shot=pasajero|conductor|nuevo): preparan datos de ejemplo para documentar las pantallas */
+const SHOT = new URLSearchParams(location.search).get('shot');
+if (SHOT) {
+  state = defaults();
+  if (SHOT !== 'nuevo') {
+    state.user = { usuario: 'demo', nombre: 'Laura Martínez', telefono: '3151234567', foto: null, vehiculo: { modelo: 'Renault Sandero', color: 'Gris', placa: 'ABC123' } };
+    state.onboarded = true;
+    state.reservas = ['k1'];
+    pushMsg('c1', 'sys', 'Reservaste el cupo de hoy a las ' + BASE[0].hora);
+    pushMsg('c1', 'me', '¿El cupo sigue disponible?');
+    pushMsg('c1', 'c1', '¡Hola! Sí, el cupo sigue disponible 🙌');
+    pushMsg('c1', 'me', 'Ya voy para el punto de encuentro');
+    pushMsg('c1', 'c1', 'Perfecto, te espero en la entrada principal. Llega 5 minutos antes, porfa.');
+    state.chats.c1.unread = false;
+    const q = new URLSearchParams(location.search).get('q'); if (q) state.filtros.q = q;
+    if (SHOT === 'conductor') {
+      state.rol = 'conductor';
+      state.misCupos = [
+        { id: 'm1', conductorId: 'me', origen: 'unal-palmira', destino: 'javeriana', dia: 1, hora: '06:30', total: 3, aporte: 8000, encuentro: 'Portería principal UNAL', pasajeros: ['p1', 'p2'] },
+        { id: 'm2', conductorId: 'me', origen: 'javeriana', destino: 'parque-bolivar', dia: 1, hora: '17:45', total: 4, aporte: 8000, encuentro: 'Parqueadero de visitantes', pasajeros: ['p3'] },
+      ];
+      pushMsg('p1', 'p1', '¡Hola! Acabo de reservar tu cupo de las 06:30. ¿Nos vemos en la portería?');
+    }
+  }
+}
+
 /* Arranque: pantalla de carga y luego la ruta pedida */
 initQR();
 const destino = location.hash && location.hash !== '#/carga' ? location.hash.slice(1) : null;
 $('#app').innerHTML = V.carga();
-setTimeout(() => {
+if (!(SHOT && location.hash === '#/carga')) setTimeout(() => {
   stack.push(destino || '/');
   if (destino) render(); else go(state.user ? '/inicio' : '/bienvenida', true);
-}, 1400);
+  const sel = SHOT && new URLSearchParams(location.search).get('click');
+  if (sel) setTimeout(() => document.querySelector(sel)?.click(), 300);
+}, SHOT ? 0 : 1400);
