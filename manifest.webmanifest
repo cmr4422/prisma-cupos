@@ -1,0 +1,9 @@
+{
+  "name": "Prisma · Cupos universitarios",
+  "short_name": "Prisma",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0B7C80",
+  "theme_color": "#0B7C80",
+  "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

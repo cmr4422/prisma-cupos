@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Prisma · Cupos universitarios</title>
+  <meta name="description" content="Prisma conecta a conductores y pasajeros universitarios para compartir cupos de transporte entre Palmira y Cali." />
+  <meta name="theme-color" content="#0B7C80" />
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+  <link rel="apple-touch-icon" href="assets/icon.svg" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="stage">
+    <aside class="showcase" aria-label="Información del proyecto">
+      <div class="showcase-inner">
+        <div class="brand-row">
+          <span class="brand-logo" data-logo="light"></span>
+          <span class="brand-name">Prisma</span>
+        </div>
+        <h1>Cupos universitarios, sin perseguir al grupo de WhatsApp.</h1>
+        <p class="lead">Encuentra, reserva y coordina tu cupo entre Palmira y Cali en segundos. Si eres conductor, publica tus cupos y gestiona a tus pasajeros desde un solo lugar.</p>
+        <div class="qr-card">
+          <div id="qr" class="qr" aria-label="Código QR de la app"></div>
+          <div>
+            <strong>Pruébala en tu celular</strong>
+            <p>Escanea el código con la cámara. Funciona en cualquier teléfono.</p>
+            <a id="app-link" class="app-link" href="./"></a>
+          </div>
+        </div>
+        <p class="credits">Proyecto de Diseño Centrado en el Usuario · Angelo Iván Rengifo Mosquera · Fares Adrian Canchala Verdecia</p>
+      </div>
+    </aside>
+    <main class="device" aria-label="Aplicación Prisma">
+      <div id="app" class="app"></div>
+      <div id="sheet-root"></div>
+      <div id="toast-root" class="toast-root" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>
